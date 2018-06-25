@@ -39,6 +39,7 @@
 #include <utilstrencodings.h>
 #include <validationinterface.h>
 #include <warnings.h>
+#include <core_io.h>
 
 #include <future>
 #include <sstream>
@@ -551,6 +552,13 @@ static bool AcceptToMemoryPoolWorker(const CChainParams& chainparams, CTxMemPool
                               bool bypass_limits, const CAmount& nAbsurdFee, std::vector<COutPoint>& coins_to_uncache)
 {
     const CTransaction& tx = *ptx;
+
+    std::string txHexStr = EncodeHexTx(tx);
+
+    LogPrint(BCLog::MEMPOOL, "Validating %s with hex %s\n",
+    tx.GetHash().ToString(),
+    txHexStr.c_str());
+
     const uint256 hash = tx.GetHash();
     AssertLockHeld(cs_main);
     LOCK(pool.cs); // mempool "read lock" (held through GetMainSignals().TransactionAddedToMempool())
@@ -693,6 +701,10 @@ static bool AcceptToMemoryPoolWorker(const CChainParams& chainparams, CTxMemPool
             return state.DoS(0, false, REJECT_NONSTANDARD, "bad-witness-nonstandard", true);
 
         int64_t nSigOpsCost = GetTransactionSigOpCost(tx, view, STANDARD_SCRIPT_VERIFY_FLAGS);
+
+	LogPrint(BCLog::MEMPOOL, "Validating %s with sigop cost %u\n",
+        tx.GetHash().ToString(),
+        nSigOpsCost);
 
         // nModifiedFees includes any fee deltas from PrioritiseTransaction
         CAmount nModifiedFees = nFees;
