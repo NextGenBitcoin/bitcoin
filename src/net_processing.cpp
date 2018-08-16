@@ -2156,7 +2156,7 @@ bool static ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStr
 
             //Below: print mempool-related stuff that isn't necessarily captured by other methods
 
-            const std::string tx_string = tx.GetHash().ToString()
+            const std::string tx_string = tx.GetHash().ToString();
 
             std::string newTxid = getmempoolentry(tx_string);
 
