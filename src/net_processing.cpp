@@ -2156,7 +2156,7 @@ bool static ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStr
 
             //Below: print mempool-related stuff that isn't necessarily captured by other methods
 
-            newTxid = blockchain::getmempoolentry(tx.GetHash().ToString());
+            std::string newTxid = blockchain::getmempoolentry(tx.GetHash().ToString());
 
             LogPrint(BCLog::MEMPOOL,"MempoolEntry: %s",
                      newTxid);
