@@ -30,6 +30,8 @@
 #include <utilmoneystr.h>
 #include <utilstrencodings.h>
 
+#include <rpc/blockchain.h>
+
 #if defined(NDEBUG)
 # error "Bitcoin cannot be compiled without assertions."
 #endif
@@ -2151,6 +2153,11 @@ bool static ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStr
                 pfrom->GetId(),
                 tx.GetHash().ToString(),
                 mempool.size(), mempool.DynamicMemoryUsage() / 1000);
+
+            //Below: print mempool-related stuff that isn't necessarily captured by other methods
+
+            LogPrint(BCLog:MEMPOOL,"MempoolEntry: %s",
+                     getmempoolentry(tx.GetHash().ToString()))
 
             // Recursively process any orphan transactions that depended on this one
             std::set<NodeId> setMisbehaving;
