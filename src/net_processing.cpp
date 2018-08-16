@@ -2157,7 +2157,7 @@ bool static ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStr
             //Below: print mempool-related stuff that isn't necessarily captured by other methods
 
             LogPrint(BCLog::MEMPOOL,"MempoolEntry: %s",
-                     getmempoolentry(tx.GetHash().ToString()))
+                     getmempoolentry(tx.GetHash().ToString()));
 
             // Recursively process any orphan transactions that depended on this one
             std::set<NodeId> setMisbehaving;
