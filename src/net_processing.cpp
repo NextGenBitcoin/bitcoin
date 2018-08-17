@@ -2156,12 +2156,25 @@ bool static ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStr
 
             //Below: print mempool-related stuff that isn't necessarily captured by other methods
 
-            const std::string tx_string = tx.GetHash().ToString();
+            const uint256 tx_hash = tx.GetHash();//.ToString();
 
-            std::string newTxid = getmempoolentry(tx_string);
+            CTxMemPool::txiter it = mempool.mapTx.find(tx_hash);
+            if (it == mempool.mapTx.end()) {
+                throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Transaction not in mempool");
+            }
+            const CTxMemPoolEntry &e = *it;
+            UniValue info(UniValue::VOBJ);
+            entryToJSON(info, e);
+            //It takes the hash input from the RPC call, finds the tx in the mempool, and if found, constructs the CTxMemPoolEntry object
+
+
+            info.pushKV("descendantcount", e.GetCountWithDescendants());
+
+
+            //std::string newTxid = getmempoolentry(tx_string);
 
             LogPrint(BCLog::MEMPOOL,"MempoolEntry: %s",
-                     newTxid);
+                     info);
 
             // Recursively process any orphan transactions that depended on this one
             std::set<NodeId> setMisbehaving;
