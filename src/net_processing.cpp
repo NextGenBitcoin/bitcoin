@@ -2159,9 +2159,9 @@ bool static ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStr
             const uint256 tx_hash = tx.GetHash();//.ToString();
 
             CTxMemPool::txiter it = mempool.mapTx.find(tx_hash);
-            if (it == mempool.mapTx.end()) {
-                throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Transaction not in mempool");
-            }
+            //if (it == mempool.mapTx.end()) {
+                //throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Transaction not in mempool");
+            //}
             const CTxMemPoolEntry &e = *it;
             UniValue info(UniValue::VOBJ);
             entryToJSON(info, e);
