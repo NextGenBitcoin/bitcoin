@@ -2166,17 +2166,17 @@ bool static ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStr
             //}
             const CTxMemPoolEntry &e = *it;
             UniValue info(UniValue::VOBJ);
-            //entryToJSON(info, e);
+            entryToJSON(info, e);
             //It takes the hash input from the RPC call, finds the tx in the mempool, and if found, constructs the CTxMemPoolEntry object
 
 
-            info.pushKV("descendantcount", e.GetCountWithDescendants());
+            //info.pushKV("descendantcount", e.GetCountWithDescendants());
 
 
             //std::string newTxid = getmempoolentry(tx_string);
 
             LogPrint(BCLog::MEMPOOL,"MempoolEntry: %s",
-                     info);
+                     e);
 
             // Recursively process any orphan transactions that depended on this one
             std::set<NodeId> setMisbehaving;
