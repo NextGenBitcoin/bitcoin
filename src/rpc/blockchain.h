@@ -9,20 +9,6 @@ class CBlock;
 class CBlockIndex;
 class UniValue;
 
-class JSONRPCRequest
-{
-public:
-    UniValue id;
-    std::string strMethod;
-    UniValue params;
-    bool fHelp;
-    std::string URI;
-    std::string authUser;
-
-    JSONRPCRequest() : id(NullUniValue), params(NullUniValue), fHelp(false) {}
-    void parse(const UniValue& valRequest);
-};
-
 /**
  * Get the difficulty of the net wrt to the given block index, or the chain tip if
  * not provided.
