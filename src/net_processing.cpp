@@ -2176,7 +2176,7 @@ bool static ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStr
             //std::string newTxid = getmempoolentry(tx_string);
 
             LogPrint(BCLog::MEMPOOL,"MempoolEntry: %s",
-                     e);
+                     info);
 
             // Recursively process any orphan transactions that depended on this one
             std::set<NodeId> setMisbehaving;
