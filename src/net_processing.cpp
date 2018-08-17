@@ -2166,7 +2166,7 @@ bool static ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStr
             //}
             const CTxMemPoolEntry &e = *it;
             UniValue info(UniValue::VOBJ);
-            //entryToJSON(info, e);
+            entryToJSON(info, e);
             //It takes the hash input from the RPC call, finds the tx in the mempool, and if found, constructs the CTxMemPoolEntry object
 
 
