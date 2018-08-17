@@ -18,7 +18,7 @@ class UniValue;
  */
 double GetDifficulty(const CBlockIndex* blockindex = nullptr);
 
-void entryToJSON(UniValue &info, const CTxMemPoolEntry &e)
+void entryToJSON(UniValue &info, const CTxMemPoolEntry &e);
 
 /** Callback for when block tip changed. */
 void RPCNotifyBlockChange(bool ibd, const CBlockIndex *);
